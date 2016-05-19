@@ -14,5 +14,4 @@ default_gw = gws['default'][netifaces.AF_INET]
 
 for ip in network:
     if ip != network.network and ip != network.broadcast and ip != netaddr.IPAddress(default_gw[0]):
-#        subprocess.call(["route", "add", "-host", str(ip),  "gw", default_gw[0]])
-         print ip
+        subprocess.call(["route", "add", "-host", str(ip),  "gw", default_gw[0]])
