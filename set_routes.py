@@ -4,7 +4,10 @@ import netaddr
 import subprocess
 import os
 
-ifconf = netifaces.ifaddresses(os.environ.get("IFACE"))[netifaces.AF_INET][0]
+
+for iface in netifaces.interfaces():
+    if iface.startswith("en"):
+        ifconf = netifaces.ifaddresses(iface)[netifaces.AF_INET][0]
 
 network = netaddr.IPNetwork("%s/%s" % (ifconf['addr'], ifconf['netmask']))
 
