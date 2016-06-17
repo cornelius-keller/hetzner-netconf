@@ -4,10 +4,12 @@ import netaddr
 import subprocess
 import os
 
-
 for iface in netifaces.interfaces():
     if iface.startswith("en"):
-        ifconf = netifaces.ifaddresses(iface)[netifaces.AF_INET][0]
+        for ifconf in  netifaces.ifaddresses(iface)[netifaces.AF_INET]:
+            if ifconf['netmask'] == '255.255.255.192':
+               break
+
 
 network = netaddr.IPNetwork("%s/%s" % (ifconf['addr'], ifconf['netmask']))
 
