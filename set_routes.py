@@ -4,10 +4,14 @@ import netaddr
 import subprocess
 import os
 from threading import Event
+import pprint 
+
+pp = pprint.PrettyPrinter(indent=4)
 
 for iface in netifaces.interfaces():
     if iface.startswith("en"):
         for ifconf in  netifaces.ifaddresses(iface)[netifaces.AF_INET]:
+            pp.pprint(ifconf)
             if ifconf['netmask'] == '255.255.255.192':
                break
 
