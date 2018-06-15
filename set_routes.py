@@ -6,11 +6,13 @@ import os
 from threading import Event
 import pprint
 import re
+from pprint import pprint
 
 
 for iface in netifaces.interfaces():
     if iface.startswith("en"):
         for ifconf in  netifaces.ifaddresses(iface)[netifaces.AF_INET]:
+            print "found ifconfg %s " % ifconf
             if ifconf['netmask'] != '255.255.255.255':
                break
 
