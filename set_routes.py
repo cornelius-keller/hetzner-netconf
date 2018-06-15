@@ -15,6 +15,8 @@ for iface in netifaces.interfaces():
             print "found ifconfg %s " % ifconf
             if ifconf['netmask'] != '255.255.255.255':
                break
+        if ifconf is not None:
+            break
 
 # get current route destinations
 routes = subprocess.check_output("route")
@@ -34,4 +36,4 @@ for ip in network:
     if ip != network.network and ip != network.broadcast and ip != netaddr.IPAddress(default_gw[0]) and str(ip) not in destinations:
         subprocess.call(["route", "add", "-host", str(ip),  "gw", default_gw[0]])
 
-Event.wait()
+Event().wait()
