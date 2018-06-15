@@ -4,7 +4,8 @@ import netaddr
 import subprocess
 import os
 from threading import Event
-import pprint 
+import pprint
+import re
 
 
 for iface in netifaces.interfaces():
