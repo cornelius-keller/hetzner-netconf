@@ -8,15 +8,17 @@ import pprint
 import re
 from pprint import pprint
 
+print netifaces.interfaces()
 
 for iface in netifaces.interfaces():
-    if netifaces.AF_INET in netifaces.ifaddresses(iface):
+    if not iface.startswith("lo") and netifaces.AF_INET in netifaces.ifaddresses(iface):
         for ifconf in  netifaces.ifaddresses(iface)[netifaces.AF_INET]:
             print "found ifconfg %s " % ifconf
             if ifconf['netmask'] != '255.255.255.255':
                break
         if ifconf is not None:
             break
+
 
 # get current route destinations
 routes = subprocess.check_output("route")
