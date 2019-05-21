@@ -6,8 +6,10 @@ import os
 from threading import Event
 import pprint
 import re
+import time
 from pprint import pprint
 
+time.sleep(10)
 print netifaces.interfaces()
 
 for iface in netifaces.interfaces():
