@@ -11,7 +11,9 @@ from pprint import pprint
 print netifaces.interfaces()
 
 for iface in netifaces.interfaces():
+    print "iface: %s" % iface
     if (iface.startswith("en") or iface.startswith("eth")) and netifaces.AF_INET in netifaces.ifaddresses(iface):
+        print "hadling %s " % netifaces.ifaddresses(iface)
         for ifconf in  netifaces.ifaddresses(iface)[netifaces.AF_INET]:
             print "found ifconfg %s " % ifconf
             if ifconf['netmask'] != '255.255.255.255':
