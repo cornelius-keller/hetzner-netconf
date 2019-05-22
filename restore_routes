@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# IMPORTANT:
+# This file must not have an extension when copied to /etc/network/if-post-up.d/
+# It will not be triggered if a dot and extension is added (.sh will not work)
+
+case "$IFACE" in
+    "en"*) ;;
+    "eth"*) ;;
+    *) exit ;;
+esac
+
+echo "$IFACE post-up triggered restore_routes hook"
+
+SET_ROUTES_NOWAIT=True /set_routes.py
