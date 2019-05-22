@@ -34,7 +34,7 @@ for line in routes.split("\n"):
     if re.match("^\d+\.\d+\.\d+\.\d+.*", line):
         destinations.append(line.split()[0])
 
-network = IPNetwork("%s/%s" % (ifconf['addr'], ifconf['netmask']))
+network = IPNetwork("%s/%s" % (inetaddr, inetmask))
 
 
 gws = gateways()
