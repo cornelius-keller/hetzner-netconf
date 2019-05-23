@@ -3,8 +3,9 @@
 from netifaces import interfaces, ifaddresses, gateways, AF_INET
 from netaddr import IPNetwork, IPAddress
 import subprocess
-from threading import Event
 import re
+from os import environ
+from threading import Event
 
 inetaddr = None
 inetmask = None
@@ -33,7 +34,7 @@ for line in routes.split("\n"):
     if re.match("^\d+\.\d+\.\d+\.\d+.*", line):
         destinations.append(line.split()[0])
 
-network = IPNetwork("%s/%s" % (ifconf['addr'], ifconf['netmask']))
+network = IPNetwork("%s/%s" % (inetaddr, inetmask))
 
 
 gws = gateways()
@@ -43,4 +44,5 @@ for ip in network:
     if ip != network.network and ip != network.broadcast and ip != IPAddress(default_gw[0]) and str(ip) not in destinations:
         subprocess.call(["route", "add", "-host", str(ip),  "gw", default_gw[0]])
 
-Event().wait()
+if environ.get('SET_ROUTES_NOWAIT') is None:
+    Event().wait()
