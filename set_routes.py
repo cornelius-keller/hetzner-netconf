@@ -17,7 +17,7 @@ for iface in interfaces():
         if AF_INET in ifconf.keys():
             for link in ifconf[AF_INET]:
                 # loopback holds a 'peer' instead of a 'broadcast' address
-                if 'addr' in link.keys() and 'peer' not in link.keys():
+                if 'addr' in link.keys() and 'peer' not in link.keys() and link['netmask'] != '255.255.255.255':
                     inetaddr = link['addr']
                     inetmask = link['netmask']
                     break
